@@ -1,0 +1,36 @@
+{% extends "main/base.html" %}
+{% block content %}
+{% include "main/menu.html" %}
+<div class="container">
+    <h1>Edit shop: {{ shop.title }}</h1>
+    {% if formset.errors %}
+      {% for form in formset %}
+        {{ form.errors }}
+      {% endfor %}
+    {% endif %}
+    {% if formset.non_field_errors %}<p>Non field errors</p>{% endif %}
+
+    {% if form.errors %}
+      <p class="alert bg-danger">{{ form.errors }}</p>
+    {% endif %}
+
+    <form action="" method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        {{ formset.management_form }}
+        {% for car in formset %}
+            {{ car.nested.management_form }}
+            <div class="alert bg-info">
+                {{ car.as_p }}
+                {% for prop_set in car.nested %}
+                  <div class="alert bg-warning">
+                    {{ prop_set.as_p }}
+                    </div>
+                {% endfor %}
+            </div>
+        {% endfor %}
+        <input type="submit" value="Save" />
+        <a class="btn btn-link" href="{% url 'main:index' %}">Dismiss</a>
+    </form>
+</div>
+{% endblock %}

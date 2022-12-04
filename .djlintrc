@@ -1,0 +1,8 @@
+{
+    "indent": 2,
+    "blank_line_before_tag": "load.extends.include",
+    "profile": "django",
+    "max_line_length": "90",
+    "max_attribute_length": "10",
+    "preserve_blank_lines": true
+}

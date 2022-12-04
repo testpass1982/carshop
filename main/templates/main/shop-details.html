@@ -1,0 +1,27 @@
+{% extends "main/base.html" %}
+{% block content %}
+{% include "main/menu.html" %}
+
+<div class="container py-3">
+
+  <p class="alert bg-info">
+      Shop: {{ object.title }}
+  </p>
+
+  {% for car in object.get_cars %}
+  <p class="alert bg-light">
+    <span class="badge bg-dark">{{ car.brand }}</span>
+    model title: {{ car.title }}
+    <p>Model characteristics:
+      <hr>
+    </p>
+    <ul>
+      {% for car_prop in car.get_props %}
+      <li>{{ car_prop.option }}: {{ car_prop.value }}</li>
+      {% endfor %}
+    </ul>
+  </p>
+  {% endfor %}
+</div>
+
+{% endblock %}

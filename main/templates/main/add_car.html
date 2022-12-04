@@ -1,0 +1,14 @@
+<div class="alert bg-info">
+  <form action="/add-car/{{ shop.pk }}/" method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <div id="car-to-{{ shop.pk }}"></div>
+    <div class="btn btn-link"
+         hx-trigger="click"
+         hx-target="#car-to-{{ shop.pk }}"
+         hx-swap="beforeend"
+         hx-get="/get-prop-form/">+add_prop</div>
+    <button class="btn btn-link" type="submit">save</button>
+    <a class="btn btn-link" href="{% url 'main:index' %}">dismiss</a>
+  </form>
+</div>

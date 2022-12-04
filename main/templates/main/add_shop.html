@@ -1,0 +1,16 @@
+{% extends "main/base.html" %}
+{% block content %}
+{% include "main/menu.html" %}
+<div class="container">
+  {% include "main/form_errors.html" %}
+  <form action="" method="post">
+    <p class="h4">Fill form to add new car shop</p>
+    {% csrf_token %}
+    <div class="alert bg-light">
+      {{ form.as_p }}
+    </div>
+    <button class="btn btn-light" type="submit">Submit</button>
+    <a class="btn btn-link" href="{% url 'main:index' %}">Cancel</a>
+  </form>
+</div>
+{% endblock %}
