@@ -12,7 +12,10 @@ class CompanyForm(forms.ModelForm):
 class CarBrandForm(forms.ModelForm):
     class Meta:
         model = CarBrand
-        fields = "__all__"
+        exclude = (
+            "ordering",
+            "seller",
+        )
 
 
 class CarPropForm(forms.ModelForm):
@@ -24,7 +27,6 @@ class CarPropForm(forms.ModelForm):
 class CarForm(forms.ModelForm):
     class Meta:
         model = Car
-        # fields = "__all__"
         exclude = (
             "ordering",
             "seller",

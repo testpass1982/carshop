@@ -1,0 +1,8 @@
+<div class="alert bg-info">
+  <form action="/add-brand/{{ shop.pk }}/" method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button class="btn btn-link" type="submit">save</button>
+    <a class="btn btn-link" href="{% url 'main:index' %}">dismiss</a>
+  </form>
+</div>

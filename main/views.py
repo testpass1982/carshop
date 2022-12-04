@@ -1,13 +1,12 @@
-from django.db.models.query_utils import check_rel_lookup_compatibility
 from django.forms.models import inlineformset_factory
 from django.shortcuts import redirect, render
 from django.urls import reverse, reverse_lazy
 from django.views.generic.detail import DetailView
-from django.views.generic.edit import CreateView, DeleteView, UpdateView
+from django.views.generic.edit import CreateView, DeleteView
 from nested_formset import nestedformset_factory
 
-from main.forms import CarForm, CarPropForm, CompanyForm
-from main.models import Car, CarBrand, CarProp, Company
+from main.forms import CarBrandForm, CarForm, CarPropForm, CompanyForm
+from main.models import Car, CarProp, Company
 
 # Create your views here.
 
@@ -31,6 +30,23 @@ class CarShopCreateView(CreateView):
         return reverse("main:shop-details", kwargs={"pk": self.object.pk})
 
 
+def add_brand(request, pk):
+    shop = Company.objects.get(pk=pk)
+    form = CarBrandForm()
+    if request.method == "POST":
+        form = CarBrandForm(request.POST)
+        if form.is_valid():
+            instance = form.save(commit=False)
+            instance.seller = shop
+            instance.save()
+            return redirect("main:index")
+    context = {
+        "form": form,
+        "shop": shop,
+    }
+    return render(request, "main/add_brand.html", context)
+
+
 def add_car(request, pk):
     form = CarForm()
     shop = Company.objects.get(pk=pk)
@@ -51,8 +67,6 @@ def add_car(request, pk):
                     prop_inst = f.save(commit=False)
                     prop_inst.car = car_instance
                     prop_inst.save()
-            else:
-                print("errors", [f.errors for f in props_forms])
             return redirect("main:shop-details", shop.pk)
     context = {
         "form": form,

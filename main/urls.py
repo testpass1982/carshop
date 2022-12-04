@@ -23,5 +23,6 @@ urlpatterns = [
         name="shop-details",
     ),
     path("add-car/<pk>/", main.add_car, name="add-car"),
+    path("add-brand/<pk>/", main.add_brand, name="add-brand"),
     path("get-prop-form/", main.get_prop_form, name="get-prop-form"),
 ]

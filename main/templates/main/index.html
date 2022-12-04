@@ -7,8 +7,14 @@
                 <p class="h4">{{ car_shop.title }}</p>
                 <span class="badge bg-dark">Brands: {{ car_shop.brands.select_related.count }}</span>
                 <span class="badge bg-dark">Cars: {{ car_shop.cars.select_related.count }}</span>
+                <a class="btn btn-link" href="{% url 'main:shop-details' car_shop.pk %}">details</a>
                 <a class="btn btn-link" href="{% url 'main:edit-shop' car_shop.pk %}">edit shop</a>
                 <a class="btn btn-link" href="{% url 'main:delete-shop' car_shop.pk %}">del shop</a>
+                <a class="btn btn-link" 
+                   hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'
+                   hx-post="/add-brand/{{ car_shop.pk }}/"
+                   hx-swap="outerHTML"
+                   href="{% url 'main:add-brand' car_shop.pk %}">add brand</a>
                 <button class="btn btn-link"
                         hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'
                         hx-post="/add-car/{{ car_shop.pk }}/"
